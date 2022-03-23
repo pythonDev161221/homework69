@@ -17,6 +17,12 @@ def get_csrf_token_view(request):
 def add_view(request):
     dump = json.loads(request.body)
     s = int(dump['A']) + int(dump['B'])
-    dict_s = {'sum': s}
+    dict_s = {'answer': s}
     return JsonResponse(dict_s)
+
+
+def subtract_view(request):
+    f = json.loads(request.body)
+    s = int(f['A']) - int(f['B'])
+    return JsonResponse({'answer': s})
 
