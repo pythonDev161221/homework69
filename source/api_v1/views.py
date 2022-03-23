@@ -26,3 +26,14 @@ def subtract_view(request):
     s = int(f['A']) - int(f['B'])
     return JsonResponse({'answer': s})
 
+
+def multiply_view(request):
+    f = json.loads(request.body)
+    s = int(f['A']) * int(f['B'])
+    return JsonResponse({'answer': s})
+
+
+def divide_view(request):
+    f = json.loads(request.body)
+    s = int(f['A'])/int(f['B'])
+    return JsonResponse({'answer': s})
