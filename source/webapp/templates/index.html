@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,20 +9,27 @@
     <title>Document</title>
 </head>
 <body>
-<form action="">
+    <div>
+    Input first number:
+    <input id="first" name="A">
+    </div>
+    <div>
+    Input second number:
+    <input id="second" name="B">
+    </div>
+  <div id="div_response"></div>
     <p>
-Input first number:
-<input id="first" type="number">
-</p>
-<p>
-Input second number:
-<input id="second" type="number">
-</p>
-    <button type="submit"> Ввести </button>
-</form>
+        <button onclick="onTakeCsrf(event)" data-to-csrf="{% url 'api_v1:token_view' %}">csrf</button>
+        <button onclick="onAddClick(event)" id="add_view_btn"
+                data-to-csrf="{% url 'api_v1:token_view' %}"
+                data-add-url="{% url 'api_v1:add_view' %}" >add</button>
+        <button>subtract</button>
+        <button>multiply</button>
+        <button>divide</button>
+    </p>
 
 
 
-<script src="index.js"></script>
+<script src="{% static 'js/index.js' %}"></script>
 </body>
 </html>
