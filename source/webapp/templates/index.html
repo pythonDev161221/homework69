@@ -27,8 +27,14 @@
                 data-to-csrf="{% url 'api_v1:token_view' %}"
                 data-add-url="{% url 'api_v1:subtract_view' %}"
         >subtract</button>
-        <button>multiply</button>
-        <button>divide</button>
+        <button onclick="onMultiplyClick(event)"
+                data-to-csrf="{% url 'api_v1:token_view' %}"
+                data-add-url="{% url 'api_v1:multiply_view' %}"
+        >multiply</button>
+        <button onclick="onMultiplyClick(event)"
+                data-to-csrf="{% url 'api_v1:token_view' %}"
+                data-add-url="{% url 'api_v1:divide_view' %}"
+        >divide</button>
     </p>
 
 

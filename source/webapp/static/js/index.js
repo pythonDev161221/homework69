@@ -73,3 +73,28 @@ async function onSubtractClick(event){
     answerPlace = document.getElementById("div_response")
     answerPlace.innerText = data.answer
 }
+
+async function onMultiplyClick(event){
+    let urlC = event.target.dataset.toCsrf;
+    let responseC = await fetch(urlC);
+    let csrf = document.cookie.split("=")[1];
+    console.log(csrf)
+    let url = event.target.dataset.addUrl;
+    let requestBody = {method: "POST"};
+    requestBody["headers"] = {"X-CSRFToken": csrf};
+    requestBody["headers"]["content-type"] = "application/json"
+
+    content = takeNumbers();
+
+    requestBody["body"] = JSON.stringify(content)
+    console.log(requestBody)
+
+
+    let response = await fetch(url, requestBody);
+    let data =  await response.json();
+
+    console.log(data.answer);
+
+    answerPlace = document.getElementById("div_response")
+    answerPlace.innerText = data.answer
+}
