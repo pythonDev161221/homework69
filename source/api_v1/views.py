@@ -39,23 +39,33 @@ def add_view(request):
         s = int(dump['A']) + int(dump['B'])
     except:
         s = "Need to input two numbers"
-    print(s)
     return JsonResponse({"answer": s})
 
 
 def subtract_view(request):
     f = json.loads(request.body)
-    s = int(f['A']) - int(f['B'])
+    try:
+        s = int(f['A']) - int(f['B'])
+    except:
+        s = "Need to input two numbers"
     return JsonResponse({'answer': s})
 
 
 def multiply_view(request):
     f = json.loads(request.body)
-    s = int(f['A']) * int(f['B'])
+    try:
+        s = int(f['A']) * int(f['B'])
+    except:
+        s = "Need to input two numbers"
     return JsonResponse({'answer': s})
 
 
 def divide_view(request):
     f = json.loads(request.body)
-    s = int(f['A'])/int(f['B'])
+    try:
+        s = int(f['A'])/int(f['B'])
+    except ZeroDivisionError:
+        s = "Zero division error"
+    except:
+        s = "Need to input two numbers"
     return JsonResponse({'answer': s})

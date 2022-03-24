@@ -19,19 +19,18 @@
     </div>
   <div id="div_response"></div>
     <p>
-        <button onclick="onTakeCsrf(event)" data-to-csrf="{% url 'api_v1:token_view' %}">csrf</button>
         <button onclick="onAddClick(event)" id="add_view_btn"
                 data-to-csrf="{% url 'api_v1:token_view' %}"
                 data-add-url="{% url 'api_v1:add_view' %}" >add</button>
-        <button onclick="onSubtractClick(event)"
+        <button onclick="onAddClick(event)"
                 data-to-csrf="{% url 'api_v1:token_view' %}"
                 data-add-url="{% url 'api_v1:subtract_view' %}"
         >subtract</button>
-        <button onclick="onMultiplyClick(event)"
+        <button onclick="onAddClick(event)"
                 data-to-csrf="{% url 'api_v1:token_view' %}"
                 data-add-url="{% url 'api_v1:multiply_view' %}"
         >multiply</button>
-        <button onclick="onMultiplyClick(event)"
+        <button onclick="onAddClick(event)"
                 data-to-csrf="{% url 'api_v1:token_view' %}"
                 data-add-url="{% url 'api_v1:divide_view' %}"
         >divide</button>

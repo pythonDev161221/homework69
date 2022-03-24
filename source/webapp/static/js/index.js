@@ -1,24 +1,20 @@
 
-// async function onEchoClick(event){
-//     let url = event.target.dataset.
+
+// async function onTakeCsrf(event){
+//     let url = event.target.dataset.toCsrf;
+//     console.log(url);
+//     let response = fetch(url);
+//     console.log(response);
+//     console.log(document.cookie)
+//     var csrf = document.cookie.split("=")[1]
+//     console.log(csrf)
 // }
-async function onTakeCsrf(event){
-    url = event.target.dataset.toCsrf;
-    console.log(url);
-    let response = fetch(url);
-    console.log(response);
-    console.log(document.cookie)
-    var csrf = document.cookie.split("=")[1]
-    console.log(csrf)
-    // let responseBody = await response.json()
-    // console.log(responseBody)
-}
-// let response = fetch(url, {method: "POST", X-csrf: body: , });
+
 
 function takeNumbers(){
 
-    let first = document.getElementById("first").value;
-    let second = document.getElementById("second").value;
+    let first = parseInt(document.getElementById("first").value) ;
+    let second = parseInt(document.getElementById("second").value) ;
 
     return {"A": first, "B": second}
 }
@@ -27,7 +23,7 @@ function takeNumbers(){
 
 async function onAddClick(event){
     let urlC = event.target.dataset.toCsrf;
-    let responseC = await fetch(urlC);
+    await fetch(urlC);
     let csrf = document.cookie.split("=")[1];
     let url = event.target.dataset.addUrl;
     let requestBody = {method: "POST"};
@@ -35,6 +31,7 @@ async function onAddClick(event){
     requestBody["headers"]["content-type"] = "application/json"
 
     content = takeNumbers();
+
 
     requestBody["body"] = JSON.stringify(content)
     console.log(requestBody)
@@ -45,56 +42,15 @@ async function onAddClick(event){
 
     console.log(data.answer);
 
-    answerPlace = document.getElementById("div_response")
+    let answerPlace = document.getElementById("div_response")
+    if (data.answer === "Need to input two numbers"){
+        answerPlace.style.color = "red";
+    }
+    else if(data.answer === "Zero division error"){
+        answerPlace.style.color = "red"
+    }else{
+        answerPlace.style.color = "green"
+    }
     answerPlace.innerText = data.answer
 }
 
-async function onSubtractClick(event){
-    let urlC = event.target.dataset.toCsrf;
-    let responseC = await fetch(urlC);
-    let csrf = document.cookie.split("=")[1];
-    console.log(csrf)
-    let url = event.target.dataset.addUrl;
-    let requestBody = {method: "POST"};
-    requestBody["headers"] = {"X-CSRFToken": csrf};
-    requestBody["headers"]["content-type"] = "application/json"
-
-    content = takeNumbers();
-
-    requestBody["body"] = JSON.stringify(content)
-    console.log(requestBody)
-
-
-    let response = await fetch(url, requestBody);
-    let data =  await response.json();
-
-    console.log(data.answer);
-
-    answerPlace = document.getElementById("div_response")
-    answerPlace.innerText = data.answer
-}
-
-async function onMultiplyClick(event){
-    let urlC = event.target.dataset.toCsrf;
-    let responseC = await fetch(urlC);
-    let csrf = document.cookie.split("=")[1];
-    console.log(csrf)
-    let url = event.target.dataset.addUrl;
-    let requestBody = {method: "POST"};
-    requestBody["headers"] = {"X-CSRFToken": csrf};
-    requestBody["headers"]["content-type"] = "application/json"
-
-    content = takeNumbers();
-
-    requestBody["body"] = JSON.stringify(content)
-    console.log(requestBody)
-
-
-    let response = await fetch(url, requestBody);
-    let data =  await response.json();
-
-    console.log(data.answer);
-
-    answerPlace = document.getElementById("div_response")
-    answerPlace.innerText = data.answer
-}
