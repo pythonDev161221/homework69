@@ -53,4 +53,3 @@ async function onAddClick(event){
     }
     answerPlace.innerText = data.answer
 }
-
