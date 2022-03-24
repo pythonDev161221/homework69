@@ -13,8 +13,6 @@ def echo_view(request):
         "method": request.method,
         "datetime": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     }
-
-    print(request.body)
     if request.body:
         response_data["body"] = json.loads(request.body)
 
@@ -37,7 +35,6 @@ def add_view(request):
             s = int(dump['A']) + int(dump['B'])
             print('ok')
         except ValueError:
-            s = "Need to input two numbers"
             return JsonResponse({'error': 'error'}, status=400)
         return JsonResponse({"answer": s})
     else:
@@ -50,7 +47,6 @@ def subtract_view(request):
         try:
             s = int(f['A']) - int(f['B'])
         except ValueError:
-            s = "Need to input two numbers"
             return JsonResponse({'error': 'error'}, status=400)
         return JsonResponse({'answer': s})
     else:
@@ -63,7 +59,6 @@ def multiply_view(request):
         try:
             s = int(f['A']) * int(f['B'])
         except ValueError:
-            s = "Need to input two numbers"
             return JsonResponse({'error': 'error'}, status=400)
         return JsonResponse({'answer': s})
     else:
@@ -77,9 +72,8 @@ def divide_view(request):
             s = int(f['A'])/int(f['B'])
         except ZeroDivisionError:
             s = "Zero division error"
-            return JsonResponse({'error': 'error'}, status=400)
+            return JsonResponse({'error': s}, status=400)
         except ValueError:
-            s = "Need to input two numbers"
             return JsonResponse({'error': 'error'}, status=400)
         return JsonResponse({'answer': s})
     else:
