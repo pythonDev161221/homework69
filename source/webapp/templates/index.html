@@ -23,7 +23,10 @@
         <button onclick="onAddClick(event)" id="add_view_btn"
                 data-to-csrf="{% url 'api_v1:token_view' %}"
                 data-add-url="{% url 'api_v1:add_view' %}" >add</button>
-        <button>subtract</button>
+        <button onclick="onSubtractClick(event)"
+                data-to-csrf="{% url 'api_v1:token_view' %}"
+                data-add-url="{% url 'api_v1:subtract_view' %}"
+        >subtract</button>
         <button>multiply</button>
         <button>divide</button>
     </p>
