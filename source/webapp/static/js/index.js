@@ -13,8 +13,8 @@
 
 function takeNumbers(){
 
-    let first = parseInt(document.getElementById("first").value) ;
-    let second = parseInt(document.getElementById("second").value) ;
+    let first = document.getElementById("first").value;
+    let second = document.getElementById("second").value ;
 
     return {"A": first, "B": second}
 }
@@ -32,24 +32,19 @@ async function onAddClick(event){
 
     content = takeNumbers();
 
-
     requestBody["body"] = JSON.stringify(content)
-    console.log(requestBody)
-
 
     let response = await fetch(url, requestBody);
-    let data =  await response.json();
-
-    console.log(data.answer);
-
     let answerPlace = document.getElementById("div_response")
-    if (data.answer === "Need to input two numbers"){
-        answerPlace.style.color = "red";
-    }
-    else if(data.answer === "Zero division error"){
-        answerPlace.style.color = "red"
-    }else{
+    console.log(response.ok)
+    if (response.ok) {
+        let data = await response.json();
         answerPlace.style.color = "green"
+        answerPlace.innerText = data.answer
+    } else {
+        let data = await response.json();
+        console.log(data)
+        answerPlace.style.color = "red"
+        answerPlace.innerText = data.error
     }
-    answerPlace.innerText = data.answer
 }

@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.http import JsonResponse, HttpResponse, HttpResponseNotAllowed
+from django.http import JsonResponse, HttpResponse, HttpResponseNotAllowed, HttpResponseBadRequest
 from django.shortcuts import render
 
 # Create your views here.
@@ -32,40 +32,55 @@ def get_csrf_token_view(request):
 
 def add_view(request):
     if request.method == "POST":
-        print('POST')
-    dump = json.loads(request.body)
-
-    try:
-        s = int(dump['A']) + int(dump['B'])
-    except:
-        s = "Need to input two numbers"
-    return JsonResponse({"answer": s})
+        dump = json.loads(request.body)
+        try:
+            s = int(dump['A']) + int(dump['B'])
+            print('ok')
+        except ValueError:
+            s = "Need to input two numbers"
+            return JsonResponse({'error': 'error'}, status=400)
+        return JsonResponse({"answer": s})
+    else:
+        return HttpResponseNotAllowed(['POST'])
 
 
 def subtract_view(request):
-    f = json.loads(request.body)
-    try:
-        s = int(f['A']) - int(f['B'])
-    except:
-        s = "Need to input two numbers"
-    return JsonResponse({'answer': s})
+    if request.method == "POST":
+        f = json.loads(request.body)
+        try:
+            s = int(f['A']) - int(f['B'])
+        except ValueError:
+            s = "Need to input two numbers"
+            return JsonResponse({'error': 'error'}, status=400)
+        return JsonResponse({'answer': s})
+    else:
+        return HttpResponseNotAllowed(['POST'])
 
 
 def multiply_view(request):
-    f = json.loads(request.body)
-    try:
-        s = int(f['A']) * int(f['B'])
-    except:
-        s = "Need to input two numbers"
-    return JsonResponse({'answer': s})
+    if request.method == "POST":
+        f = json.loads(request.body)
+        try:
+            s = int(f['A']) * int(f['B'])
+        except ValueError:
+            s = "Need to input two numbers"
+            return JsonResponse({'error': 'error'}, status=400)
+        return JsonResponse({'answer': s})
+    else:
+        return HttpResponseNotAllowed(['POST'])
 
 
 def divide_view(request):
-    f = json.loads(request.body)
-    try:
-        s = int(f['A'])/int(f['B'])
-    except ZeroDivisionError:
-        s = "Zero division error"
-    except:
-        s = "Need to input two numbers"
-    return JsonResponse({'answer': s})
+    if request.method == "POST":
+        f = json.loads(request.body)
+        try:
+            s = int(f['A'])/int(f['B'])
+        except ZeroDivisionError:
+            s = "Zero division error"
+            return JsonResponse({'error': 'error'}, status=400)
+        except ValueError:
+            s = "Need to input two numbers"
+            return JsonResponse({'error': 'error'}, status=400)
+        return JsonResponse({'answer': s})
+    else:
+        return HttpResponseNotAllowed(['POST'])
